@@ -5,10 +5,10 @@ with open('spider_eval/dev.json', 'r') as f:
     dev_data = json.load(f)
 
 # เลือก 10 คำถามแรก
-subset_data = dev_data[:10]
+subset_data = dev_data[:100]
 
 # บันทึกเป็น dev_subset.json
-with open('spider_eval/dev_subset.json', 'w') as f:
+with open('spider_eval/dev_subset_100.json', 'w') as f:
     json.dump(subset_data, f, indent=2)
 
-print("Created dev_subset.json with 10 questions")
+print("Created dev_subset.json successful!!!")

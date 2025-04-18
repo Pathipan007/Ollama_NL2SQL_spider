@@ -9,8 +9,8 @@ def get_schema(db_id, tables_file='spider_eval/tables.json'):
     for db in tables:
         if db['db_id'] == db_id:
             schema = []
-            for table_idx, table_name in enumerate(db['table_names']):
-                columns = [col[1] for col in db['column_names'] if col[0] == table_idx]
+            for table_idx, table_name in enumerate(db['table_names_original']):
+                columns = [col[1] for col in db['column_names_original'] if col[0] == table_idx]
                 if columns:
                     schema.append(f"Table: {table_name}, Columns: {', '.join(columns)}")
             return '\n'.join(schema)
@@ -43,11 +43,11 @@ def query_ollama(prompt):
         return ""
 
 # อ่าน dev.json
-with open('spider_eval/dev_subset.json', 'r') as f:
+with open('spider_eval/dev_subset_100.json', 'r') as f:
     dev_data = json.load(f)
 
 # สร้าง predicted_sql.txt
-with open('spider_eval/predicted_sql.txt', 'w') as f:
+with open('spider_eval/predicted_sql_100.txt', 'w') as f:
     for i, item in enumerate(dev_data):
         question = item['question']
         db_id = item['db_id']
@@ -63,7 +63,7 @@ Output only the SQL query as a single line, without Markdown formatting (e.g., `
         f.write(f"{cleaned_sql}\n")
         print(f"Processed question {i+1}/{len(dev_data)}")
         print(f"Question: {question}")
-        print(f"SQL: {cleaned_sql}")
+        print(f"SQL query: {cleaned_sql}")
         print("-----------------------------------------------------------------------------------------------------------\n\n")
 
-print("Generated successful!!!")
+print("Generated successful!!!") 
